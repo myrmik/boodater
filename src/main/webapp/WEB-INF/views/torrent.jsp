@@ -18,14 +18,25 @@
     <script type="text/javascript" language="javascript"
             src="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script type="text/javascript" charset="utf-8">
+        Date.prototype.toLocaleFormat = function(format) {
+            var f = {y : this.getYear() + 1900,m : this.getMonth() + 1,d : this.getDate(),H : this.getHours(),M : this.getMinutes(),S : this.getSeconds()}
+            for(k in f)
+                format = format.replace('%' + k, f[k] < 10 ? "0" + f[k] : f[k]);
+            return format;
+        };
+
         $(document).ready(function () {
             $('#example').dataTable({
-                <%--"ajax": "<spring:url value="/torrents"/>",--%>
-                "ajax": "http://localhost:8081/torrents",
+                "paging":   false,
+                "ajax": "<spring:url value="/torrents"/>",
                 "columns": [
                     { "data": "name" },
                     { "data": "episode" },
-                    { "data": "date" }
+                    { "data": "date",
+                        "render": function ( data ) {
+                            return new Date(data).toLocaleFormat('%d.%m.%y %H:%M');
+                        }
+                    }
                 ]
             });
         });
