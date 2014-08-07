@@ -9,13 +9,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Home</title>
     <style type="text/css" title="currentStyle">
-        @import "<spring:url value="/css/bootstrap.min.css"/>";
-        @import "<spring:url value="/css/bootstrap-theme.min.css"/>";
+        @import "<spring:url value="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>";
+        @import "<spring:url value="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css"/>";
     </style>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-    <script src='<spring:url value="/js/bootstrap.min.js"/>' type="text/javascript"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
     <script type="text/javascript">

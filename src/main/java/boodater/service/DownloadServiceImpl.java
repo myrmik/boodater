@@ -24,7 +24,7 @@ public class DownloadServiceImpl extends BaseService implements DownloadService 
     }
 
     @Override
-    public void downloadToFile(String url, String filePath) {
+    public boolean downloadToFile(String url, String filePath) {
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -32,12 +32,14 @@ public class DownloadServiceImpl extends BaseService implements DownloadService 
             os = new FileOutputStream(filePath);
             IOUtils.copy(is, os);
             log.debug("File was downloaded from '" + url + "' to '" + filePath + "'");
+            return true;
         } catch (IOException e) {
             log.error("Page was not opened or saved. Url: " + url + ", file path: " + filePath, e);
         } finally {
             IOUtils.closeQuietly(is);
             IOUtils.closeQuietly(os);
         }
+        return false;
     }
 
 }
