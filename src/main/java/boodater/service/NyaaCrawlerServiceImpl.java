@@ -34,7 +34,7 @@ public class NyaaCrawlerServiceImpl extends BaseService implements NyaaCrawlerSe
         for (Element rowItem : rowItems) {
             Elements nameItem = rowItem.select("td.tlistname > a");
             String name = nameItem.text();
-            if (isMatch(episode.getName(), name)) {
+            if (isMatch(episode, name)) {
                 Elements urlItem = rowItem.select("td.tlistdownload > a");
                 if (urlItem != null) {
                     String href = urlItem.attr("href");
@@ -46,8 +46,8 @@ public class NyaaCrawlerServiceImpl extends BaseService implements NyaaCrawlerSe
         return false;
     }
 
-    private boolean isMatch(String torrentName, String name) {
-        return !(StringUtil.isEmpty(torrentName) || StringUtil.isEmpty(name))
-                && name.contains(TORRENT_OWNER) && name.contains(torrentName);
+    private boolean isMatch(CurrentEpisode episode, String name) {
+        return !(episode == null || StringUtil.isEmpty(name))
+                && name.contains(TORRENT_OWNER) && name.contains(episode.getName()) && name.contains(" " + episode.getEpisodeString() + " ");
     }
 }
