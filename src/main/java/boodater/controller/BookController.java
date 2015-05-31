@@ -27,7 +27,7 @@ public class BookController extends BaseController {
     @Autowired
     private BookDao bookDao;
 
-    @RequestMapping(value = {"/", "showBooks"})
+    @RequestMapping(value = {"showBooks"})
     public String showBooks(Model model) {
 
         List<Book> books = bookDao.selectAll();

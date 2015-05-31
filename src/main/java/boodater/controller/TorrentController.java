@@ -1,12 +1,10 @@
 package boodater.controller;
 
 import boodater.dao.CurrentEpisodeDao;
-import boodater.model.Book;
 import boodater.model.CurrentEpisode;
 import boodater.model.DataTableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,16 +16,16 @@ public class TorrentController extends BaseController {
     @Autowired
     private CurrentEpisodeDao currentEpisodeDao;
 
-    @RequestMapping(value = {"showTorrents"})
-    public String showTorrents(Model model) {
+    @RequestMapping(value = {"/", "showTorrents"})
+    public String showTorrents() {
         return "torrent";
     }
 
     @RequestMapping(value = {"/torrents"})
     public
     @ResponseBody
-    DataTableResponse<CurrentEpisode> showBooks() {
+    DataTableResponse<CurrentEpisode> getTorrents() {
         List<CurrentEpisode> episodes = currentEpisodeDao.selectAllTorrents();
-        return new DataTableResponse<CurrentEpisode>(episodes);
+        return new DataTableResponse<>(episodes);
     }
 }

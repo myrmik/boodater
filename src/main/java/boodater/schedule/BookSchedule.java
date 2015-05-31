@@ -20,7 +20,7 @@ public class BookSchedule extends BaseSchedule {
     @Autowired
     BookProcessService bookProcessService;
 
-    @Scheduled(fixedDelay=3600000) // 1 hour
+    //@Scheduled(fixedDelay=3600000) // 1 hour
     public void updateBooks() {
         List<Book> books = bookDao.selectAll();
         for (Book book : books) {
