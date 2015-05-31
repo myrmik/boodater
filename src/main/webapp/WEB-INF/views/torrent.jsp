@@ -19,8 +19,8 @@
             src="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <script type="text/javascript" charset="utf-8">
         Date.prototype.toLocaleFormat = function(format) {
-            var f = {y : this.getYear() + 1900,m : this.getMonth() + 1,d : this.getDate(),H : this.getHours(),M : this.getMinutes(),S : this.getSeconds()}
-            for(k in f)
+            var f = {y : this.getYear() + 1900,m : this.getMonth() + 1,d : this.getDate(),H : this.getHours(),M : this.getMinutes(),S : this.getSeconds()};
+            for(var k in f)
                 format = format.replace('%' + k, f[k] < 10 ? "0" + f[k] : f[k]);
             return format;
         };
@@ -31,29 +31,51 @@
                 "ajax": "<spring:url value="/torrents"/>",
                 "columns": [
                     { "data": "name" },
-                    { "data": "episode" },
+                    { "data": "episode",
+                        "render": function ( data ) {
+                            return ("<input type='text' value='" + data + "'/>");
+                        }
+                    },
                     { "data": "date",
                         "render": function ( data ) {
-                            return new Date(data).toLocaleFormat('%d.%m.%y %H:%M');
+                            return new Date(data).toLocaleFormat('%d.%m.%y %H:%M:%S');
                         }
                     }
-                ]
+                ],
+                "initComplete": function () {
+                    var api = this.api();
+                    api.$('td').click( function () {
+                        var inp = $("input");
+                        inp.val(this.innerHTML);
+                        this.innerHTML = "";
+                        $(this).append(inp);
+                        $(this).find("[type='search']").hide();
+                        inp.css("width", "100%");
+                        inp.focus();
+                    } );
+                }
             });
         });
     </script>
 </head>
 <body>
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Episode</th>
-        <th>Updated</th>
-    </tr>
-    </thead>
+<div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Episode</th>
+                <th>Updated</th>
+            </tr>
+            </thead>
 
-    <tfoot>
-    </tfoot>
-</table>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-md-3"></div>
+</div>
 </body>
 </html>
